@@ -6,9 +6,10 @@ class Grid {
    * @param x
    * @param y
    */
-  constructor(x, y) {
+  constructor(x, y, debug = false) {
     this.grid = [x, y];
     this.robots = [];
+    this.debug = debug;
   }
 
   /**
@@ -20,7 +21,7 @@ class Grid {
   addRobot(initalPosition, initialDirection='N', instructions) {
     const robot = new Robot(initalPosition, initialDirection);
 
-    //console.log('Instructions', instructions);
+    this.log('Instructions', instructions);
     this.executeInstructions(robot, instructions);
 
     this.robots.push(robot);
@@ -56,7 +57,7 @@ class Grid {
       .some(robot => {
         const [x2, y2] = robot.getPosition();
 
-        //console.log('Robot on lost position?', robot, x2, y2, x, y);
+        this.log('Robot on lost position?', robot, x2, y2, x, y);
 
         return x2 === x && y2 === y;
       })
@@ -69,37 +70,37 @@ class Grid {
    */
   executeInstructions(robot, instructions) {
     instructions.some(instruction => {
-      // console.log(robot.getPosition());
+      this.log(robot.getPosition());
       switch(instruction) {
         case 'R':
-          // console.log('Rotating RIGHT');
+          this.log('Rotating RIGHT');
           robot.rotateRight();
           break;
 
         case 'L':
-          // console.log('Rotating LEFT');
+          this.log('Rotating LEFT');
           robot.rotateLeft();
           break;
 
         case 'F':
-          // console.log('Moving FORWARD');
+          this.log('Moving FORWARD');
           const [xNext, yNext] = robot.nextPosition();
           if (this.isPositionOffGrid(xNext, yNext)) {
             /**
              * Robot is about to go off grid. Let's first check if there is a 'scent'
              * that can save our robot from the abyss...
              */
-            // console.log(' - about to move off grid...');
+            this.log(' - about to move off grid...');
             const [xCurrent, yCurrent] = robot.getPosition();
             if (this.wasRobotLostOnPosition(xCurrent, yCurrent)) {
               /**
                * Robot SAVED!!! Do nothing and continue...
                */
-              // console.log(' - saved by a scent');
+              this.log(' - saved by a scent');
               break;
             }
 
-            // console.log(' - robot lost');
+            this.log(' - robot lost');
             robot.setLost(true);
             return true;
           }
@@ -107,7 +108,7 @@ class Grid {
           /**
            * Movement looks good, let it happen
            */
-          // console.log(' - moved');
+          this.log(' - moved');
           robot.moveForward();
           break;
 
@@ -127,6 +128,14 @@ class Grid {
         return `${x} ${y} ${robot.getDirection()}` + ( robot.isLost() ? ' LOST' : '' );
       })
       .join('\n');
+  }
+
+  log() {
+    if (!this.debug) {
+      return;
+    }
+
+    console.log.apply(console.log, arguments);
   }
 }
 
