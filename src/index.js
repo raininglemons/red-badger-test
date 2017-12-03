@@ -1,5 +1,3 @@
-const Grid = require('./Grid');
-
 /**
  * Using exit code 0 because if we use anything else npm suppresses errors
  * when script is run via npm run...
@@ -29,6 +27,8 @@ fs.access(filename, fs.constants.R_OK, (err) => {
     if (err) {
       throw err;
     }
+
+    const Grid = require('./Grid');
 
     const [ gridDimensions, ...robots ] = data.split('\n');
     const [ x, y ] = gridDimensions.split(' ');
