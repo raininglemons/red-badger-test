@@ -21,6 +21,11 @@ register "scents" in an array that **only** contains enough spaces for the grid 
 using mostly sample data provided in challenge.
 * Node version test, or at least some kind of transpiled alternative. Current test assumes the
 latest version of Node.
+* Better handling of errors in the main script instead of always failing on a success code.
+* Oooh also, since moving my code at work to react, I've done all new code with flow.js typing. I'd
+have liked to have added this, as particularly it's great with Intellij/Webstorm and it's great for
+preventing bugs in the build process. Deliberately left it out as this is a pure node application so
+wanted to avoid any kind of transpiling as it wasn't necessary on this small an app.
 
 
 ## How to run

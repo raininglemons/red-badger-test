@@ -2,9 +2,10 @@ const Robot = require('./Robot');
 
 class Grid {
   /**
-   *
-   * @param x
-   * @param y
+   * @constructor
+   * @param {number} x Grid width
+   * @param {number} y Grid height
+   * @param {boolean} [false] debug
    */
   constructor(x, y, debug = false) {
     this.grid = [x, y];
@@ -14,9 +15,9 @@ class Grid {
 
   /**
    *
-   * @param initalPosition
-   * @param initialDirection
-   * @param instructions
+   * @param {[number, number]} initalPosition X,Y co-ordinates of robots start position as array/tuple
+   * @param {'N' | 'E' | 'S' | 'W'} initialDirection Initial direction the robot is facing. Provide a string representation of direction in uppercase as a single letter.
+   * @param {Array<String>} instructions Instructions robot should take
    */
   addRobot(initalPosition, initialDirection='N', instructions) {
     const robot = new Robot(initalPosition, initialDirection);
@@ -28,9 +29,10 @@ class Grid {
   }
 
   /**
-   *
-   * @param x
-   * @param y
+   * Checks whether given position is off grid.
+   * @private
+   * @param {Number} x
+   * @param {Number} y
    * @returns {boolean}
    */
   isPositionOffGrid(x, y) {
@@ -47,8 +49,8 @@ class Grid {
 
   /**
    * Checks whether a lost robot was last seen on this position.
-   * @param x
-   * @param y
+   * @param {Number} x
+   * @param {Number} y
    * @returns {boolean}
    */
   wasRobotLostOnPosition(x, y) {
@@ -130,6 +132,10 @@ class Grid {
       .join('\n');
   }
 
+  /**
+   * Will log given arguments if instance is constructed with debug = true. Else suppresses anything passed to it.
+   * @param {...mixed} arguments to apply to console.log
+   */
   log() {
     if (!this.debug) {
       return;
