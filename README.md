@@ -71,6 +71,6 @@ Run with sample file input:
 or -
 
 ```bash
-    npm run source.txt
+    npm start source.txt
 ```
 
