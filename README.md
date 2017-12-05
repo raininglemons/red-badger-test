@@ -30,10 +30,11 @@ wanted to avoid any kind of transpiling as it wasn't necessary on this small an 
 which should be simple enough to add new commands to. Thought about adding a dictionary of commands to
 the functions for executing them but thought in this size of a script going that far would be a bit
 of over-engineering.
-* `The maximum value for any coordinate is 50.` Wasn't sure whether this was a restriction and the world
+* `The maximum value for any coordinate is 50.` ~~Wasn't sure whether this was a restriction and the world
 should be capped at 50 x 50. Or this was more to help in developing to suggest that we wouldn't need to
 account for a grid greater than this size. Allowed for an infinite size of grid. In practice would have
-gone to requestor to clarify.
+gone to requestor to clarify.~~ Changed to disallow grid's greater than 50. With hindsight, this is what was
+required.
 
 
 ## How to run

@@ -8,6 +8,14 @@ class Grid {
    * @param {boolean} [false] debug
    */
   constructor(x, y, debug = false) {
+    if (x > 50) {
+      throw new Error('Grid cannot have an x dimension greater than 50');
+    }
+
+    if (y > 50) {
+      throw new Error('Grid cannot have a y dimension greater than 50');
+    }
+
     this.grid = [x, y];
     this.robots = [];
     this.debug = debug;
